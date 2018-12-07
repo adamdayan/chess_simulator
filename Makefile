@@ -1,5 +1,5 @@
-ChessMain: ChessMain.o ChessBoard.o Piece.o Pawn.o Rook.o Knight.o Bishop.o King.o Queen.o
-	g++ -Wall -g $^ -o ChessMain
+chess: ChessMain.o ChessBoard.o Piece.o Pawn.o Rook.o Knight.o Bishop.o King.o Queen.o
+	g++ -Wall -g $^ -o chess
 
 ChessMain.o: ChessMain.cpp 
 	g++ -Wall -g -c ChessMain.cpp -o ChessMain.o
