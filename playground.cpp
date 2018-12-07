@@ -21,9 +21,17 @@ int main()
 
   cb.submitMove("C7", "C6");
 
-  // cb.submitMove("A4", "A1");
+  cb.submitMove("G1", "F3");
 
-  cb.displayBoard(); 
+  cb.displayBoard();
+
+  cb.submitMove("H7", "H6");
+
+  cb.displayBoard();
+
+  cb.submitMove("E1", "G1");
+
+  cb.displayBoard();
   
   return 0;
 }

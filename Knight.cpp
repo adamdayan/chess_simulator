@@ -12,13 +12,13 @@ bool Knight::isValidMoveSpecific(std::string new_position)
   char new_rank, new_file, cur_rank, cur_file;
   int rank_delta, file_delta;
 
-  new_rank = new_position[0];
-  new_file = new_position[1];
-  cur_rank = position[0];
-  cur_file = position[1];
+  new_file = new_position[0];
+  new_rank = new_position[1];
+  cur_file = position[0];
+  cur_rank = position[1];
 
-  rank_delta = new_rank - cur_rank;
   file_delta = new_file - cur_file;
+  rank_delta = new_rank - cur_rank; 
 
   if (!((abs(rank_delta) == 2 && abs(file_delta) == 1)
 	|| (abs(rank_delta) == 1 && abs(file_delta) == 2)))

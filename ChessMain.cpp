@@ -37,7 +37,7 @@ int main() {
     cb.submitMove("E2", "E4");
     cb.submitMove("E7", "E6");
     cout << endl;
-
+    
     cb.submitMove("D2", "D4");
     cb.submitMove("D7", "D5");
     cout << endl;
@@ -74,6 +74,7 @@ int main() {
     cb.submitMove("F7", "E6");
     cout << endl;
 
+    cb.displayBoard();
     cb.submitMove("D3", "G6");
     cout << endl;
 

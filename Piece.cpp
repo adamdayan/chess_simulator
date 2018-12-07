@@ -8,7 +8,8 @@ Piece::Piece(int passed_colour, std::string passed_position, ChessBoard* passed_
 {
   colour = passed_colour;
   position = passed_position;
-  board_ptr = passed_board_ptr; 
+  board_ptr = passed_board_ptr;
+  move_count = 0; 
 }
 
 bool Piece::makeMove(std::string new_position)
@@ -27,13 +28,13 @@ bool Piece::isValidMove(std::string new_position)
   int file;
   Piece* test_ptr;
 
-  rank = new_position[0];
-  file = new_position[1] - '0';
+  file = new_position[0];
+  rank = new_position[1] - '0';
 
-  if (!(rank >= 65 && rank < 73))
+  if (!(file >= 65 && file < 73))
     return false;
 
-  if (!(file >= 1 && file < 9))
+  if (!(rank >= 1 && rank < 9))
     return false;
 
   test_ptr =  board_ptr->getCell(new_position);
@@ -72,4 +73,15 @@ void Piece::setPosition(std::string new_position)
 {
   position = new_position;
 }
+
+void Piece::incrementMoveCnt()
+{
+  ++move_count;
+
+  return;
+}
+
+Piece::~Piece()
+{
+} 
  
