@@ -29,7 +29,7 @@ int main()
 
   cb.displayBoard();
 
-  cb.submitMove("E1", "G1");
+  cb.submitMove("E1", "C1");
 
   cb.displayBoard();
   

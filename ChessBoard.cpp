@@ -106,7 +106,7 @@ void ChessBoard::initialiseBoard()
   coord = std::string("H1");
   board_map[coord] = new Rook(1, coord, this);
 
-  cout << "A new chess game has started!"; 
+  cout << "A new chess game is started!"; 
   
   return; 
 }
