@@ -296,6 +296,7 @@ bool ChessBoard::isCheckmate()
   string piece_coord, move_coord;
   Piece* piece_ptr;
   Piece* saved_target_ptr;
+  bool checkr = true; 
 
   for (int piece_rank = 0; piece_rank < 8; piece_rank++)
     {
@@ -320,7 +321,10 @@ bool ChessBoard::isCheckmate()
 			  piece_ptr->setPosition(move_coord); 
 			  board_map[piece_coord] = nullptr;
 
-			  if (!isCheck())
+			  // DON'T FORGET TO CHANGE
+			  checkr = isCheck();
+			  
+			  if (!checkr)
 			    {
 			      board_map[piece_coord] = piece_ptr;
 			      piece_ptr->setPosition(piece_coord);
@@ -447,7 +451,8 @@ bool ChessBoard::isCastle(Piece* piece_ptr, std::string new_position)
   board_map[king_location] = nullptr; 
   piece_ptr->setPosition(new_position); 
   board_map[rook_destination] = rook_ptr;
-  board_map[rook_location] = nullptr; 
+  board_map[rook_location] = nullptr;
+  rook_ptr->setPosition(rook_destination); 
 
   return true; 
 }
@@ -505,6 +510,7 @@ void ChessBoard::submitMove(const char* piece_char, const char* destination_char
   if (isCastle(piece_ptr, destination))
     {
       cout << playerColour() << " has castled to " << destination << endl;
+      switchMove(); 
       return; 
     }
 

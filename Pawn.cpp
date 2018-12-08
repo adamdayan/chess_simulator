@@ -34,8 +34,8 @@ bool Pawn::isValidMoveSpecific(std::string new_position)
     return false;
 
   /* check pawns move forward */ 
-  if (rank_delta == 0)
-    return false;
+  if ((colour == 0 && rank_delta > -1) || (colour == 1 && rank_delta < 1))
+    return false; 
   /* if pawn isn't taking a piece, cannot move diagonally */ 
   if (destination_ptr == nullptr && file_delta != 0)
     return false;
