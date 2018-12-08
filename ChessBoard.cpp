@@ -264,7 +264,7 @@ bool ChessBoard::isCheck()
   Piece* test_ptr;
   int target_colour;
 
-  target_colour = move_colour % 1; 
+  target_colour = 1 - move_colour; 
 
   /* find coordinates of king belonging to current turn holder */ 
   king_coord = king_ptrs[target_colour]->position; 
