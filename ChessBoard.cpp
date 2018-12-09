@@ -298,8 +298,7 @@ bool ChessBoard::isCheckmate()
 {
   string piece_coord, move_coord;
   Piece* piece_ptr;
-  Piece* saved_target_ptr;
-  bool checkr = true; 
+  Piece* saved_target_ptr; 
 
   /* loop through whole board and see if there are any moves possible for the opposing player 
      that result in check being broken */ 
