@@ -115,7 +115,8 @@ void ChessBoard::terminateBoard()
 {
   string coord;
   Piece* piece_ptr; 
-  
+
+  /* loops through whole board a deletes all remaining pieces and sets the pointer to null */ 
   for (int i = 0; i < 8; i++)
     {
       for (int j = 0; j < 8; j++)
@@ -203,7 +204,7 @@ void ChessBoard::displayBoard()
   cout << endl << endl; 
 }
 
-/* TO COMPLETE */ 
+
 bool ChessBoard::isCheck(string piece_coord, string destination_coord)
 {
   string coord, king_coord;
@@ -266,9 +267,11 @@ bool ChessBoard::isCheck()
 
   target_colour = 1 - move_colour; 
 
-  /* find coordinates of king belonging to current turn holder */ 
+  /* find coordinates of king belonging to opposing player */ 
   king_coord = king_ptrs[target_colour]->position; 
-  
+
+  /* loop through whole board and see if any of the current player's pieces can attack the 
+     opposing player's king */ 
   for (int i = 0; i < 8; i++)
     {
       for (int j = 0; j < 8; j++)
@@ -298,6 +301,8 @@ bool ChessBoard::isCheckmate()
   Piece* saved_target_ptr;
   bool checkr = true; 
 
+  /* loop through whole board and see if there are any moves possible for the opposing player 
+     that result in check being broken */ 
   for (int piece_rank = 0; piece_rank < 8; piece_rank++)
     {
       for (int piece_file = 0; piece_file < 8; piece_file++)
@@ -320,11 +325,8 @@ bool ChessBoard::isCheckmate()
 			  board_map[move_coord] = piece_ptr;
 			  piece_ptr->setPosition(move_coord); 
 			  board_map[piece_coord] = nullptr;
-
-			  // DON'T FORGET TO CHANGE
-			  checkr = isCheck();
-			  
-			  if (!checkr)
+	  
+			  if (!isCheck())
 			    {
 			      board_map[piece_coord] = piece_ptr;
 			      piece_ptr->setPosition(piece_coord);
@@ -350,6 +352,8 @@ bool ChessBoard::isStalemate()
 {
   string piece_coord, move_coord;
   Piece* piece_ptr;
+
+  /* if the opposing player is not in check, compute if there are any valid moves for them */ 
 
   if (isCheck())
     return false; 
@@ -388,20 +392,24 @@ bool ChessBoard::isCastle(Piece* piece_ptr, std::string new_position)
   Rook* rook_ptr;
   King* king_ptr; 
 
-  
+  /* is the piece attempting to initiate a seeming castle a king? */ 
   if (!(piece_ptr->type == "King"))
     return false;
-
+  
   king_ptr = dynamic_cast<King*>(piece_ptr); 
 
   king_location = king_ptr->position; 
 
+  /* check king's current and proposed positions */ 
+  
   if (!(king_location == string("E8") || king_location == string("E1")))
     return false;
 
   if (!(new_position == "C1" || new_position == "C8"
 	|| new_position == "G1" || new_position == "G8"))
     return false;
+
+  /* find the relevant's rook's position */ 
 
   if (new_position == "C1")
     {
@@ -442,10 +450,14 @@ bool ChessBoard::isCastle(Piece* piece_ptr, std::string new_position)
   if (rook_ptr->getColour() != piece_ptr->getColour())
     return false; 
 
+  /* check whethe proposed castle concords with the rules for the Rook and King */ 
+  
   if (!(king_ptr->isValidCastle(new_position) && rook_ptr->isValidCastle(rook_destination)))
     {
       return false; 
     }
+
+  /* execute the castle */ 
 
   board_map[new_position] = piece_ptr;
   board_map[king_location] = nullptr; 
@@ -478,16 +490,46 @@ void ChessBoard::switchMove()
   move_colour = 1 - move_colour; 
 }
 
+bool ChessBoard::checkArgs(string argument_1, string argument_2)
+{
+  if (argument_1.length() != 2)
+    return false;
+
+  if (argument_2.length() != 2)
+    return false;
+
+  if (!(argument_1[0] >= 65 && argument_1[0] < 73))
+    return false;
+
+  if (!((argument_1[1] - '0') >= 1 && (argument_1[1] - '0') < 9))
+    return false;
+
+  if (!(argument_2[0] >= 65 && argument_2[0] < 73))
+    return false;
+
+  if (!((argument_2[1] - '0') >= 1 && (argument_2[1] - '0') < 9))
+    return false;
+
+  return true;
+}
+
 void ChessBoard::submitMove(const char* piece_char, const char* destination_char)
 {
   std::string piece = piece_char, destination = destination_char;
   Piece* piece_ptr;
   Piece* destination_ptr;
-
+  
   /* if game is over, do not allow any more moves to be played */ 
   if (is_game_over)
     {
       cout << "The game is over. You cannot play anymore moves!\n";
+      return;
+    }
+
+  /* do not precede if coordinates entered are invalid */ 
+  if (!checkArgs(piece, destination))
+    {
+      cout << "You have entered invalid coordinates\n";
       return;
     }
 
@@ -521,7 +563,7 @@ void ChessBoard::submitMove(const char* piece_char, const char* destination_char
       return;
     }
 
-  /* TO COMPLETE */ 
+  /* test whether proposed move results in check */ 
   if (isCheck(piece, destination))
     {
       cout << "Your move is invalid as it results in check. Please take it again!" << endl;

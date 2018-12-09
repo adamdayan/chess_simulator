@@ -13,6 +13,7 @@ bool King::isValidMoveSpecific(std::string new_position)
   char new_rank, new_file, cur_rank, cur_file;
   int rank_delta, file_delta;
 
+  /* split out current and proposed positions into constituent rank and file */ 
   new_file = new_position[0];
   new_rank = new_position[1];
   cur_file = position[0];
@@ -21,6 +22,7 @@ bool King::isValidMoveSpecific(std::string new_position)
   rank_delta = new_rank - cur_rank;
   file_delta = new_file - cur_file;
 
+  /* can move 1 in any direction */ 
   if (abs(rank_delta) > 1 || abs(file_delta) > 1)
     return false; 
   
@@ -42,20 +44,26 @@ bool King::isValidCastle(std::string new_position)
   rank_delta = new_rank - cur_rank;
   file_delta = new_file - cur_file;
 
+  /* only 2 possible destination files */ 
   if (!(new_file == 'C' || new_file == 'G'))
     return false; 
-  
+
+  /* cannot have moved previously */ 
   if (move_count != 0)
     return false;
 
+  /* cannot move ranks */ 
   if (rank_delta != 0)
     return false;
 
+  /* always moves 2 files */ 
   if (abs(file_delta) != 2)
     return false; 
 
+  /* check for pieces in the way */ 
   for (int i = 0; i <= file_delta; i++)
     {
+      /* used to modify 'i' such that it has the correct sign */ 
       signer = file_delta / abs(file_delta);
       incrementer = i * signer;
 

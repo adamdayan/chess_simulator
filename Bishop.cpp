@@ -14,7 +14,8 @@ bool Bishop::isValidMoveSpecific(std::string new_position)
   std::string coord;
   Piece* test_ptr;
   int rank_delta, file_delta; 
-  
+
+  /* split out current and proposed positions into constituent rank and file */ 
   new_file = new_position[0];
   new_rank = new_position[1];
   cur_file = position[0];
@@ -23,9 +24,11 @@ bool Bishop::isValidMoveSpecific(std::string new_position)
   file_delta = new_file - cur_file;
   rank_delta = new_rank - cur_rank;
 
+  /* must have 1:1 ratio of file and rank change */ 
   if (!(abs(rank_delta) == abs(file_delta)))
     return false;
 
+  /* check there are no pieces in the way */ 
   if (rank_delta > 0 && file_delta > 0)
     {
       for (int i = 1; i < abs(rank_delta); i++)

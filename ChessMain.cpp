@@ -74,7 +74,6 @@ int main() {
     cb.submitMove("F7", "E6");
     cout << endl;
 
-    cb.displayBoard();
     cb.submitMove("D3", "G6");
     cout << endl;
 

@@ -46,17 +46,11 @@ bool Piece::isValidMove(std::string new_position)
 
   if (new_position == position)
     return false; 
-
-  /* REALLY NOT SURE WHY I DID THIS. CHECK LATER */ 
-  if (rank == file)
-    return false;
   
   if (!isValidMoveSpecific(new_position))
     return false;
 
   return true; 
-
-  
 }
 
 char Piece::getSymbol()

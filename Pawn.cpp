@@ -15,11 +15,13 @@ bool Pawn::isValidMoveSpecific(std::string new_position)
   int rank_delta, file_delta; 
   Piece* destination_ptr;
 
+  /* split out current and proposed positions into constituent rank and file */ 
   new_file = new_position[0];
   new_rank = new_position[1];
   cur_file = position[0];
   cur_rank = position[1];
 
+  /* compute change in position */ 
   file_delta = new_file - cur_file;
   rank_delta = new_rank - cur_rank;
 
