@@ -177,7 +177,7 @@ void ChessBoard::printCells(int iterator)
       if (piece_pointer == nullptr)
 	piece_symbol = ' ';
       else
-	piece_symbol = piece_pointer->symbol; 
+	piece_symbol = piece_pointer->getSymbol(); 
       
       cout << "| " << piece_symbol << " ";
     }
@@ -222,7 +222,7 @@ bool ChessBoard::isCheck(string piece_coord, string destination_coord)
   
 
   /* find coordinates of king belonging to current turn holder */ 
-  king_coord = king_ptrs[move_colour]->position; 
+  king_coord = king_ptrs[move_colour]->getPosition(); 
   
   for (int i = 0; i < 8; i++)
     {
@@ -268,7 +268,7 @@ bool ChessBoard::isCheck()
   target_colour = 1 - move_colour; 
 
   /* find coordinates of king belonging to opposing player */ 
-  king_coord = king_ptrs[target_colour]->position; 
+  king_coord = king_ptrs[target_colour]->getPosition(); 
 
   /* loop through whole board and see if any of the current player's pieces can attack the 
      opposing player's king */ 
@@ -392,12 +392,12 @@ bool ChessBoard::isCastle(Piece* piece_ptr, std::string new_position)
   King* king_ptr; 
 
   /* is the piece attempting to initiate a seeming castle a king? */ 
-  if (!(piece_ptr->type == "King"))
+  if (!(piece_ptr->getType() == "King"))
     return false;
   
   king_ptr = dynamic_cast<King*>(piece_ptr); 
 
-  king_location = king_ptr->position; 
+  king_location = king_ptr->getPosition(); 
 
   /* check king's current and proposed positions */ 
   
@@ -441,7 +441,7 @@ bool ChessBoard::isCastle(Piece* piece_ptr, std::string new_position)
   if (test_ptr == nullptr)
     return false;
 
-  if (test_ptr->type != "Rook")
+  if (test_ptr->getType() != "Rook")
     return false;
 
   rook_ptr = dynamic_cast<Rook*>(test_ptr); 
@@ -557,7 +557,7 @@ void ChessBoard::submitMove(const char* piece_char, const char* destination_char
 
   if (!piece_ptr->isValidMove(destination))
     {
-      cout << playerColour() << "'s " <<  piece_ptr->type
+      cout << playerColour() << "'s " <<  piece_ptr->getType()
 	   << " cannot move to " << destination << "!" << endl;
       return;
     }
@@ -569,12 +569,12 @@ void ChessBoard::submitMove(const char* piece_char, const char* destination_char
       return;
     }
 
-  cout << endl << playerColour() << "'s " << piece_ptr->type
+  cout << endl << playerColour() << "'s " << piece_ptr->getType()
        << " moves from " << piece << " to " <<  destination;
 
   if (destination_ptr != nullptr)
     {
-      cout << " taking " << enemyColour() << "'s " << destination_ptr->type;
+      cout << " taking " << enemyColour() << "'s " << destination_ptr->getType();
       delete destination_ptr;
       destination_ptr = nullptr; 
     }

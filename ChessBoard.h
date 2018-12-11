@@ -14,7 +14,7 @@
 
 class ChessBoard
 {
- public:
+ private:
   /* hashmap of coordinates and piece pointers */ 
   std::map<std::string, Piece*> board_map;
   /* records which player's move it currently is. 0 represents black, 1 white */ 
@@ -25,7 +25,7 @@ class ChessBoard
   bool is_game_over; 
 
   /* METHODS */ 
-  
+ public:
   /* constructor */ 
   ChessBoard();
 

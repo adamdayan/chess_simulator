@@ -63,6 +63,16 @@ int Piece::getColour()
   return colour;
 }
 
+std::string Piece::getPosition()
+{
+  return position;
+}
+
+std::string Piece::getType()
+{
+  return type;
+}
+
 void Piece::setPosition(std::string new_position)
 {
   position = new_position;

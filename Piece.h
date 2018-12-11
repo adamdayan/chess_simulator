@@ -7,7 +7,7 @@ class ChessBoard;
 
 class Piece
 {
- public:
+ protected:
   /* colour of piece */ 
   int colour;
   /* current position of piece */ 
@@ -22,7 +22,7 @@ class Piece
   ChessBoard* board_ptr; 
 
   /* METHODS */ 
-  
+ public:
   /* constructor */ 
   Piece(int passed_colour, std::string passed_position, ChessBoard* passed_board_ptr); 
   bool makeMove(std::string new_position);
@@ -34,10 +34,13 @@ class Piece
   char getSymbol();
   /* getter for piece colour */ 
   int getColour();
+  /* getter for position data member */
+  std::string getPosition(); 
   /* setter for position data member */ 
   void setPosition(std::string new_position);
   /* increments the move counter data member */ 
-  void incrementMoveCnt(); 
+  void incrementMoveCnt();
+  std::string getType(); 
   /* destructor */ 
   virtual ~Piece(); 
 };
